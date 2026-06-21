@@ -26,4 +26,4 @@ mult = edgeToEdgeMult(float(NEW_RES_X)/float(NEW_RES_Y))
 
 print(f'Sens multiplier: {mult}')
 print(f'Rawaccel \'Y/X Ratio\' value: {1.0/mult}')
-print(f'New sens: {round(ORIG_SENS * mult, 3)}') # idk valo only has sensitivies to 3 decimal places 
+print(f'New sens: {round(ORIG_SENS * mult, 3)}') # idk valo only has sensitivities to 3 decimal places 
