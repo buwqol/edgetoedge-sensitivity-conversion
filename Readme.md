@@ -4,7 +4,7 @@ A quick breakdown of how you do edge to edge sensitivity conversions across diff
 ## Disclaimer
 I don't think any of this is necessarily beneficial at all. I'm in the camp that playing on different sensitivities is not at all harmful, and might even be productive to accelerating raw mouse control. I don't believe in 'muscle memory' when it comes to aim - I don't think forcing yourself to play on the same sensitivity just because it's what you're used to is particularly helpful. Don't be afraid to experiment with whatever feels comfortable from time to time.
 
-With that being said, I do think the math behind it is interesting, so here it is. I've also added a short python script (`TheCode.py`) to hopefully help illustrate how this would all look in code.
+With that being said, I do think the math behind it is interesting, so here it is.
 
 ## The math
 Valorant has a fixed horizontal FOV of 103, and a fixed aspect ratio of 16:9
@@ -98,4 +98,42 @@ $$
 
 I don't think this automatically applies on startup, so you might want to manually set that up (I'm not going to go over how, it's very easy).
 
-That's actually it.
+That's really it.
+
+## The code
+
+Here's a little python script that'll hopefully help illustrate how you would go about doing it in code:
+
+```python
+import math
+
+# change these
+ORIG_SENS = 0.555
+NEW_RES_X = 1024
+NEW_RES_Y = 768
+
+def edgeToEdgeMult(
+        newAspectRatio, 
+        origAspectRatio=(16.0/9.0), # valo's aspect ratio is 'locked' at 16:9
+        origHorizFOV=103.0          # valo's horizontal FOV is 'locked' at 103
+        ):
+    vertFOV = 2.0 * math.atan(
+        math.tan(math.radians(origHorizFOV) / 2.0) / origAspectRatio
+    )
+
+    newHorizFOV = math.degrees(
+        2.0 * math.atan(
+            math.tan(vertFOV / 2.0) * newAspectRatio
+        )
+    )
+
+    return newHorizFOV / origHorizFOV
+
+mult = edgeToEdgeMult(float(NEW_RES_X)/float(NEW_RES_Y))
+
+print(f'Sens multiplier: {mult}')
+print(f'Rawaccel \'Y/X Ratio\' value: {1.0/mult}')
+print(f'New sens: {round(ORIG_SENS * mult, 3)}') # idk valo only has sensitivities to 3 decimal places 
+```
+
+That's **actually** it, have fun!
