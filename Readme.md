@@ -16,9 +16,11 @@ Lucky for us, the vertical FOV is **actually** fixed, and doesn't change regardl
 
 To get our vertical FOV, all we need to do is the following:
 
+
 $$
 v = 2\cdot\arctan\left(\tan\left(\frac{h\mathrm{_original}}{2}\right)\div a\mathrm{_original}\right)
 $$
+
 
 Where:
 - $v$ is our vertical FOV (constant value),
@@ -29,15 +31,19 @@ Where:
 
 Again, in the case of Valorant, this is a fixed value:
 
+
 $$
 v = 2\cdot\arctan\left(\tan\left(\frac{103}{2}\right)\div\mathrm{\frac{16}{9}}\right)\approx70.5328\degree
 $$
 
+
 Now that we have our vertical FOV, to get our new horizontal FOV:
+
 
 $$
 h\mathrm{_new} = 2\cdot\arctan\left(\tan\left(\frac{v}{2}\right)\cdot a\mathrm{_new}\right)
 $$
+
 
 Where:
 - $v$ is our vertical FOV (constant value),
@@ -46,9 +52,11 @@ Where:
 
 With our new horizontal FOV, we can find the ratio between the old and new, which will then act as our sensitivity multiplier ($s$):
 
+
 $$
 \frac{h_\mathrm{new}}{h_\mathrm{old}} = \text{s}
 $$
+
 
 Then, just multiply $s$ with your original sensitivity, and you'll get your new sensitivity!
 
@@ -56,17 +64,21 @@ For example, if:
 - my new resolution is $1024\times768$
 - my original sensitivity is $0.555$
 
+
 $$
 h\mathrm{_new} = 2\cdot\arctan\left(\tan\left(\frac{v}{2}\right)\cdot\frac{1024}{768}\right) \approx 86.63197\degree,
 $$
+
 
 $$
 \frac{h_\mathrm{new}}{103} = \text{s} \approx 0.8410870958626299,
 $$
 
+
 $$
 \text{new sensitivity} = s \cdot 0.555 \approx 0.467
 $$
+
 
 That's it!
 
@@ -78,9 +90,11 @@ For this, install rawaccel, uncheck "Lock X & Y" and set the "Y/X Ratio" to the 
 
 For example, using the same results from the prior example, I would set my "Y/X Ratio" parameter to:
 
+
 $$
 \frac{1}{s} \approx 1.188937513034113
 $$
+
 
 I don't think this automatically applies on startup, so you might want to manually set that up (I'm not going to go over how, it's very easy).
 
