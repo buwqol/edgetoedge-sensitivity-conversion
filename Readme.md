@@ -15,9 +15,11 @@ For our screen-edge to screen-edge sensitivity conversions, we need to recalcula
 Lucky for us, the vertical FOV is **actually** fixed, and doesn't change regardless of which resolution you use (native, stretched, true-stretched, etc.)
 
 To get our vertical FOV, all we need to do is the following:
+
 $$
 v = 2\cdot\arctan\left(\tan\left(\frac{h\mathrm{_original}}{2}\right)\div a\mathrm{_original}\right)
 $$
+
 Where:
 - $v$ is our vertical FOV (constant value),
 - $h\mathrm{_original}$ is our original horizontal FOV, 
@@ -26,37 +28,46 @@ Where:
 (Also note that in this case I'm accepting our FOVs in degrees rather than radians, but in a program you'll (probably) have to first convert your $h\mathrm{_original}$ to radians)
 
 Again, in the case of Valorant, this is a fixed value:
+
 $$
 v = 2\cdot\arctan\left(\tan\left(\frac{103}{2}\right)\div\mathrm{\frac{16}{9}}\right)\approx70.5328\degree
 $$
 
 Now that we have our vertical FOV, to get our new horizontal FOV:
+
 $$
 h\mathrm{_new} = 2\cdot\arctan\left(\tan\left(\frac{v}{2}\right)\cdot a\mathrm{_new}\right)
 $$
+
 Where:
 - $v$ is our vertical FOV (constant value),
 - $h\mathrm{_new}$ is our new horizontal FOV, 
 - and $a\mathrm{_new}$ is our new aspect ratio $(\frac{\text{resolution width}}{\text{resolution height}})$. 
 
 With our new horizontal FOV, we can find the ratio between the old and new, which will then act as our sensitivity multiplier ($s$):
+
 $$
 \frac{h_\mathrm{new}}{h_\mathrm{old}} = \text{s}
 $$
+
 Then, just multiply $s$ with your original sensitivity, and you'll get your new sensitivity!
 
 For example, if:
 - my new resolution is $1024\times768$
 - my original sensitivity is $0.555$
+
 $$
 h\mathrm{_new} = 2\cdot\arctan\left(\tan\left(\frac{v}{2}\right)\cdot\frac{1024}{768}\right) \approx 86.63197\degree,
 $$
+
 $$
 \frac{h_\mathrm{new}}{103} = \text{s} \approx 0.8410870958626299,
 $$
+
 $$
 \text{new sensitivity} = s \cdot 0.555 \approx 0.467
 $$
+
 That's it!
 
 ## Disadvantage & a work-around
@@ -66,6 +77,7 @@ Unfortunately, this comes at the disadvantage of scaling down your vertical sens
 For this, install rawaccel, uncheck "Lock X & Y" and set the "Y/X Ratio" to the inverse of whatever you calculated for s.
 
 For example, using the same results from the prior example, I would set my "Y/X Ratio" parameter to:
+
 $$
 \frac{1}{s} \approx 1.188937513034113
 $$
